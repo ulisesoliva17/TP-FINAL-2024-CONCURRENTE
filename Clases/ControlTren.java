@@ -13,7 +13,7 @@ public class ControlTren {
 
     private static final int PRIMER_TERMINAL = 65;
 
-    private LinkedList<String> prints;
+    private LinkedList<String> ListaPasajeros;
     private AtomicInteger cantPasajerosEnTren = new AtomicInteger(0);
     private AtomicInteger numeroViaje = new AtomicInteger(1);
     private final int cantTerminales, capacidadTren;
@@ -21,7 +21,7 @@ public class ControlTren {
     private final Semaphore permisoArrancarTren, semVolverInicio, permisoSubirTren, mutex;
 
     public ControlTren(int capacidadMaxima, int cantidadTerminales) {
-        this.prints = new LinkedList<String>();
+        this.ListaPasajeros = new LinkedList<String>();
         this.capacidadTren = capacidadMaxima;
         this.cantTerminales = cantidadTerminales;
         this.permisoSubirTren = new Semaphore(capacidadMaxima);
@@ -43,7 +43,8 @@ public class ControlTren {
 
         // Se utiliza un mutex para controlar el acceso a la variable cantPasajerosEnTren
         mutex.acquire();
-        prints.add(pasajero + " subio al tren.");
+        //agrega a la lista un nuevo pasajero
+        ListaPasajeros.add(pasajero + " subio al tren.");
         cantPasajerosEnTren.incrementAndGet();
         controlarBajadaEnEstacion(pasajero.getReserva().getTerminal().getLetra());
         mutex.release();
@@ -81,7 +82,7 @@ public class ControlTren {
         // Se libera un permiso para que el tren vuelva a la estacion de origen
         semVolverInicio.release();
         cantPasajerosEnTren.decrementAndGet();
-        prints.add(pasajero + " se bajo del tren. Quedan " + cantPasajerosEnTren.get() + " pasajeros en el tren.");
+        ListaPasajeros.add(pasajero + " se bajo del tren. Quedan " + cantPasajerosEnTren.get() + " pasajeros en el tren.");
     }
 
     /**
@@ -98,11 +99,11 @@ public class ControlTren {
             int cantPasajerosFaltantes = capacidadTren - cantPasajerosEnTren.get();
             permisoSubirTren.acquire(cantPasajerosFaltantes);
             semVolverInicio.release(cantPasajerosFaltantes);
-            prints.add("====== El tren no esta completo, faltan " + cantPasajerosFaltantes
+            ListaPasajeros.add("====== El tren no esta completo, faltan " + cantPasajerosFaltantes
                     + " pasajeros para completar el tren. El tren comienza el viaje "
                     + numeroViaje.getAndIncrement() + ".");
         } else {
-            prints.add("====== El tren esta completo, comienza el viaje " + numeroViaje.getAndIncrement() + ".");
+            ListaPasajeros.add("====== El tren esta completo, comienza el viaje " + numeroViaje.getAndIncrement() + ".");
         }
     }
 
@@ -142,7 +143,7 @@ public class ControlTren {
     public void volverPrimerParada() throws InterruptedException {
         // Se constata que el tren este vacio y se vuelva a la primera parada
         semVolverInicio.acquire(capacidadTren);
-        prints.add("******El tren regresa a la primera parada. Quedan {} pasajeros en el tren." + cantPasajerosEnTren.get());
+        ListaPasajeros.add("******El tren regresa a la primera parada. Quedan {} pasajeros en el tren." + cantPasajerosEnTren.get());
     }
 
     /**
@@ -155,8 +156,8 @@ public class ControlTren {
 
     // Metodos de la clase ---------------------------------------------------------
     public void mostrarMensajes() {
-        while (!prints.isEmpty()) {
-            System.out.println(prints.poll());
+        while (!ListaPasajeros.isEmpty()) {
+            System.out.println(ListaPasajeros.poll());
         }
     }
 }
