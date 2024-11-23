@@ -1,14 +1,15 @@
 import java.util.concurrent.atomic.AtomicInteger;
-
 public class Reloj implements Runnable{
     private static final int hora_apuertura = 9; 
     private static final int hora_cierra = 18;
     private static final int nuevo_dia = 24;
 
     private final AtomicInteger hora_actual;
+    private Parque parque;
 
-    public Reloj(AtomicInteger hora){
+    public Reloj(AtomicInteger hora,Parque par){
         hora_actual = hora;
+        parque=par;
     }
 
     public void run() {
@@ -18,27 +19,26 @@ public class Reloj implements Runnable{
             try {
                 Thread.sleep(4000);
                 hora_actual.addAndGet(1);
-                //System.out.println(PrintColor.ANSI_YELLOW + "[CLASE RELOJ] Hora actual: " + Handler.formatoHora(hora.get()) + " hs" + PrintColor.ANSI_RESET);
+                System.out.println("[CLASE RELOJ]. Hora Actual: "+hora_actual);
 
                 switch (hora_actual.get()) {
                     case hora_apuertura: {
-                        //aeropuerto.comenzarHorarioAtencion();
-                        //Thread.sleep(1000);
+                        parque.comenzarHorarioAtencion();
+                        Thread.sleep(1000);
                     }
                     case hora_cierra: {
-                        //aeropuerto.terminarHorarioAtencion();
-                        //Thread.sleep(1000);
+                        parque.terminarHorarioAtencion();
+                        Thread.sleep(1000);
                     }
                     case nuevo_dia: {
                         hora_actual.set(0);
-                        //System.out.println( PrintColor.ANSI_YELLOW + "[CLASE RELOJ] Comienza un nuevo día" + PrintColor.ANSI_RESET);
+                        System.out.println("[CLASE RELOJ] Comienza un nuevo día");
                     }
                     default :{
                     }
                 }
 
-                //notificarTerminalesHora(terminales);
-                //repositor.notificarCambioHora();
+
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 System.out.println("Error en Reloj.run: " + ex.getMessage());
