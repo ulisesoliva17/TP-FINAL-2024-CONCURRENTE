@@ -1,6 +1,6 @@
 public class Visitante implements Runnable {
     private int id;
-    
+    private String nombre;
 
     public Visitante (int idVisitante) {
         
@@ -11,5 +11,9 @@ public class Visitante implements Runnable {
         while (true) {
             
         }
+    }
+
+    public String getNombre(){
+        return nombre;
     }
 }
