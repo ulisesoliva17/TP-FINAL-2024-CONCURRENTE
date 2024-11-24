@@ -8,7 +8,7 @@ public class ControlTren {
     private boolean trenAndando=false;
     private final BlockingQueue<Visitante> cola;
 
-
+    
     public ControlTren(int cap) {        
         capacidadMax = cap;
         cola = new ArrayBlockingQueue<>(cap);

@@ -16,4 +16,8 @@ public class Visitante implements Runnable {
     public String getNombre(){
         return nombre;
     }
+
+    private void comiendo(){
+        
+    }
 }
