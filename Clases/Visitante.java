@@ -22,9 +22,9 @@ public class Visitante implements Runnable {
         int num=0;
         while (true) {
             try {
-                num = comedor.llegaVisitante();
+                num = comedor.llegaVisitante(id);
                 this.comiendo();
-                comedor.dejaMesa(num);
+                comedor.dejaMesa(num, id);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

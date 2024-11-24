@@ -14,7 +14,10 @@ public class Comedor {
     public Comedor(int cant){
         cantMesas = cant;
         capacidad = cantMesas*4;
-
+        mesa = new CyclicBarrier[cantMesas];
+        mesaLlena = new boolean[cantMesas];
+        sentados = new int[cantMesas];
+        
         for(int i=0; i < cantMesas; i++){
             mesa[i] = new CyclicBarrier(4);
         }
@@ -46,7 +49,6 @@ public class Comedor {
         System.out.println("Visitante " +id+ " se sienta en mesa"+i);
 
         mesa[i].await();
-        System.out.println("[CLASE COMEDOR]");
         mesaLlena[i] = true;
         sentados[i]++;
 
@@ -62,7 +64,7 @@ public class Comedor {
         if(sentados[i]==0){
             mesaLlena[i] = false;
         }
-        
+
         cantVisitantes--;
 
         System.out.println("Sale visitante"+id);
