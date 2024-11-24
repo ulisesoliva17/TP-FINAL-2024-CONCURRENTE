@@ -21,10 +21,11 @@ public class Visitante implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        try {
-            /*num = comedor.llegaVisitante(id);
+    public void run(){
+        int num=0;
+
+            try {
+                /*num = comedor.llegaVisitante(id);
                 this.comiendo();
                 comedor.dejaMesa(num, id);*/
 
