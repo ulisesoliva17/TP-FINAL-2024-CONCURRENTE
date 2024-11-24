@@ -4,6 +4,7 @@ import java.util.concurrent.BlockingQueue;
 public class ControlTren {
 
     private final int capacidadMax;
+    private int visitasDentro=0;
     private boolean trenAndando=false;
     private final BlockingQueue<Visitante> cola;
 
@@ -21,6 +22,12 @@ public class ControlTren {
         }
         
         cola.add(visita);
+        visitasDentro++;
+    }
+
+
+    public void trenEsperando(){
+        
     }
 
 
@@ -33,7 +40,7 @@ public class ControlTren {
         trenAndando=false;
 
         cola.clear();
-        
+
         cola.notifyAll();
     }
 }
