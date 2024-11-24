@@ -41,6 +41,7 @@ public class Comedor {
         
         //Encontro mesa con espacio
         mesa[i].await();
+        System.out.println("[CLASE COMEDOR]");
         mesaLlena[i] = true;
         sentados[i]++;
         
