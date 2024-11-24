@@ -2,7 +2,7 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class Comedor {
-    //asd
+
     private CyclicBarrier[] mesa;
     private boolean[] mesaLlena;
     private int[] sentados;
@@ -10,86 +10,89 @@ public class Comedor {
     private int capacidad;
     private int cantVisitantes = 0;
 
-
-    public Comedor(int cant){
+    public Comedor(int cant) {
         cantMesas = cant;
-        capacidad = cantMesas*4;
+        capacidad = cantMesas * 4;
         mesa = new CyclicBarrier[cantMesas];
         mesaLlena = new boolean[cantMesas];
         sentados = new int[cantMesas];
-        
-        for(int i=0; i < cantMesas; i++){
+
+        for (int i = 0; i < cantMesas; i++) {
             mesa[i] = new CyclicBarrier(4);
         }
 
-        for(int i=0; i < cantMesas; i++){
+        for (int i = 0; i < cantMesas; i++) {
             mesaLlena[i] = false;
         }
     }
 
+    public void llegaVisitante(int id) throws InterruptedException, BrokenBarrierException {
 
-    public int llegaVisitante(int id) throws InterruptedException, BrokenBarrierException{
-        
-        int i=0;
+        while (cantVisitantes >= capacidad) {
+            this.wait();
+        }
 
-        synchronized(this){
+        cantVisitantes++;
 
-            if(cantVisitantes == capacidad){
-                this.wait();
-            }
+        buscaMesa(id);
+    }
 
-            cantVisitantes++;
+    public synchronized int buscaMesa(int id) throws InterruptedException, BrokenBarrierException {
 
-            System.out.println("Llega visitante "+id);
+        int i = 0;
+        int mesaAsignada=-1;
 
-            //Busca mesa con espacio
-            while (mesaLlena[i]==true && i<cantMesas) {
-                i++;
+        System.out.println("Entra visitante " + id);
 
-                if(i==cantMesas){
-                    i=0;
-                    //System.out.println("ENTRE !!!");
-                }
-            }
+        // Busca mesa con espacio
+        while (mesaAsignada==-1) {
             
-            sentados[i]++;
-
-            if(sentados[i]==4){
-                mesaLlena[i] = true; 
+            if (i == cantMesas) {
+                i = 0;
             }
-            //Encontro mesa con espacio
-            System.out.println("Visitante " +id+ " se sienta en mesa"+i);
-        }
-    
-        
-            mesa[i].await();
 
-        synchronized(this){
-            System.out.println("Visitante " +id+ " come en mesa"+i);
+            if(mesaLlena[i]==false){
+                mesaAsignada=i;
+            }
+
+            i++;
         }
-        
+
+        sentados[i]++;
+
+        if (sentados[i] == 4) {
+            mesaLlena[i] = true;
+        }
+        // Encontro mesa con espacio
+        System.out.println("Visitante " + id + " se sienta en mesa" + i);
+
+        mesa[i].await();
+
+        synchronized (this) {
+            System.out.println("Visitante " + id + " come en mesa" + i);
+        }
 
         return i;
     }
 
+    public synchronized void dejaMesa(int mesa, int id) {
 
-    public synchronized void dejaMesa(int i, int id){
-        System.out.println("Sale visitante"+id);
-        
-        sentados[i]--;
-        if(sentados[i]==0){
-            mesaLlena[i] = false;
+        sentados[mesa]--;
+
+        if (sentados[mesa] == 0) {
+            mesaLlena[mesa] = false;
         }
 
+    }
+
+    public synchronized void saleVisitante(int id) {
+
+        System.out.println("Sale visitante" + id);
+        
         cantVisitantes--;
 
         this.notify();
 
-        
     }
 
-
-
 }
-
-
