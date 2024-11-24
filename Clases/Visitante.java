@@ -31,8 +31,8 @@ public class Visitante implements Runnable {
                 this.comiendo();                
                 comedor.dejaMesa(num, id);
                 comedor.saleVisitante(id);
-
-            /*    
+                
+            /*
             // Intercambiar ficha y jugar
             juegos.intercambiarFicha(id);
             // Obtener puntos del juego
