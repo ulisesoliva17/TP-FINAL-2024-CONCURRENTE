@@ -61,7 +61,7 @@ public class Comedor {
     }
 
 
-    public void dejaMesa(int i, int id){
+    public synchronized void dejaMesa(int i, int id){
 
         sentados[i]--;
         if(sentados[i]==0){
@@ -69,6 +69,8 @@ public class Comedor {
         }
 
         cantVisitantes--;
+
+        this.notify();
 
         System.out.println("Sale visitante"+id);
     }

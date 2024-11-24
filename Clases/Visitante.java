@@ -20,7 +20,7 @@ public class Visitante implements Runnable {
 
     public void run(){
         int num=0;
-        while (true) {
+        
             try {
                 num = comedor.llegaVisitante(id);
                 this.comiendo();
@@ -33,7 +33,7 @@ public class Visitante implements Runnable {
                 e.printStackTrace();
             }
             
-        }
+        
     }
 
     public String getNombre(){
