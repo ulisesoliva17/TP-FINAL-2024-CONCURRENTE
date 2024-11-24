@@ -46,6 +46,7 @@ public class Comedor {
         System.out.println("Visitante " +id+ " se sienta en mesa"+i);
 
         mesa[i].await();
+        System.out.println("[CLASE COMEDOR]");
         mesaLlena[i] = true;
         sentados[i]++;
 
