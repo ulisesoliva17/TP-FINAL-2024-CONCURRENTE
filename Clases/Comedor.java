@@ -43,19 +43,34 @@ public class Comedor {
             System.out.println("Llega visitante "+id);
 
             //Busca mesa con espacio
-            while (mesaLlena[i]==true) {
+            while (mesaLlena[i]==true && i<cantMesas) {
                 i++;
+
+                if(i==cantMesas){
+                    i=0;
+                    //System.out.println("ENTRE !!!");
+                }
             }
             
+            sentados[i]++;
+
+            if(sentados[i]==4){
+                mesaLlena[i] = true; 
+            }
             //Encontro mesa con espacio
             System.out.println("Visitante " +id+ " se sienta en mesa"+i);
         }
     
-        mesa[i].await();
-        mesaLlena[i] = true;
-        sentados[i]++;
+        
+            mesa[i].await();
 
-        System.out.println("Visitante " +id+ " come en mesa"+i);
+        synchronized(this){
+            
+            //System.out.println("mesa"+i+" esta llena: "+mesaLlena[i]);
+
+            System.out.println("Visitante " +id+ " come en mesa"+i);
+        }
+        
 
         return i;
     }

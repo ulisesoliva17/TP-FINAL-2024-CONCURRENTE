@@ -11,7 +11,7 @@ public class Visitante implements Runnable {
     }
     private void comiendo() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -20,7 +20,7 @@ public class Visitante implements Runnable {
 
     public void run(){
         int num=0;
-        
+
             try {
                 num = comedor.llegaVisitante(id);
                 this.comiendo();

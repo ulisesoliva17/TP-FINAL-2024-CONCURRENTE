@@ -1,8 +1,8 @@
 public class Principal {
     public static void main(String[] args) {
-        Visitante visitante[] = new Visitante[5];
-        Thread  hiloVisitante[] = new Thread[5];
-        Comedor comedor= new Comedor(2);
+        Visitante visitante[] = new Visitante[20];
+        Thread  hiloVisitante[] = new Thread[20];
+        Comedor comedor= new Comedor(4);
         
         
 
