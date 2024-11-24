@@ -35,7 +35,7 @@ public class Comedor {
         cantVisitantes++;
 
         //Busca mesa con espacio
-        while (mesaLlena[i]==false) {
+        while (mesaLlena[i]==true) {
             i++;
         }
         
@@ -48,12 +48,15 @@ public class Comedor {
         return i;
     }
 
+
     public void dejaMesa(int i){
 
         sentados[i]--;
         if(sentados[i]==0){
             mesaLlena[i] = false;
         }
+        
+        cantVisitantes--;
     }
 
 
