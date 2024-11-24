@@ -2,7 +2,7 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class Comedor {
-    
+    //asd
     private CyclicBarrier[] mesa;
     private boolean[] mesaLlena;
     private int[] sentados;
