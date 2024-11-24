@@ -15,11 +15,26 @@ public class ControlTren {
 
 
     public void llegaVisitante(Visitante visita) throws InterruptedException{
+        
+        if(trenAndando){
+            cola.wait();
+        }
+        
         cola.add(visita);
     }
 
+
     public void arrancaTren(){
         trenAndando=true;
+    }
+
+    
+    public void vueltaTren() throws InterruptedException{
+        trenAndando=false;
+
+        cola.clear();
+        
+        cola.notifyAll();
     }
 }
 
