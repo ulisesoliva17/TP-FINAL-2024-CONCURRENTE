@@ -11,7 +11,7 @@ public class Visitante implements Runnable {
     }
     private void comiendo() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

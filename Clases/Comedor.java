@@ -65,9 +65,6 @@ public class Comedor {
             mesa[i].await();
 
         synchronized(this){
-            
-            //System.out.println("mesa"+i+" esta llena: "+mesaLlena[i]);
-
             System.out.println("Visitante " +id+ " come en mesa"+i);
         }
         
@@ -77,7 +74,8 @@ public class Comedor {
 
 
     public synchronized void dejaMesa(int i, int id){
-
+        System.out.println("Sale visitante"+id);
+        
         sentados[i]--;
         if(sentados[i]==0){
             mesaLlena[i] = false;
@@ -87,7 +85,7 @@ public class Comedor {
 
         this.notify();
 
-        System.out.println("Sale visitante"+id);
+        
     }
 
 
