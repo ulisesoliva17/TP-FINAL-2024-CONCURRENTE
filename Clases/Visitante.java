@@ -1,54 +1,45 @@
-import java.util.concurrent.Exchanger;
 
 public class Visitante implements Runnable {
     private int id;
     private String nombre;
     private Comedor comedor;
-    private Exchanger<String> exchanger;
+    private AreaJuegos juegos;
     private int puntos;
-    public Visitante (int idVisitante,Comedor com,Exchanger<String> exchanger) {
-        id= idVisitante;
-        comedor=com;
-        this.exchanger = exchanger; this.puntos = 0;
+
+    public Visitante(int idVisitante, Comedor com, AreaJuegos area) {
+        this.id = idVisitante;
+        this.comedor = com;
+        this.juegos = area;
+        this.puntos = 0;
     }
+
     private void comiendo() {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public void run(){
-        int num=0;
-
-            try {
-                /*num = comedor.llegaVisitante(id);
+    @Override
+    public void run() {
+        try {
+            /*num = comedor.llegaVisitante(id);
                 this.comiendo();
                 comedor.dejaMesa(num, id);*/
-                String ficha = exchanger.exchange("Ficha del visitante"); 
-                System.out.println("Visitante " + id + " intercambió una ficha y recibió: " + ficha);
-                 // Jugar y obtener puntos 
-                 this.puntos = (int) (Math.random() * 100); 
-                 // Ejemplo de puntos aleatorios 
-                 System.out.println("Visitante " + id + " obtuvo " + puntos + " puntos."); 
-                 // Recibir premio basado en los puntos 
-                 String premio = exchanger.exchange("Puntos: " + puntos); 
-                 System.out.println("Visitante " + id + " recibió: " + premio);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } /*catch (BrokenBarrierException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }*/
-            
-        
+
+            // Intercambiar ficha y jugar
+            juegos.intercambiarFicha(id);
+            // Obtener puntos del juego
+            this.puntos = juegos.jugar(id);
+            // Recibir premio basado en los puntos
+            juegos.recibirPremio(puntos,id);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public String getNombre(){
-        return nombre;
+    public int getPuntos() {
+        return puntos;
     }
-
 }
