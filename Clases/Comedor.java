@@ -49,29 +49,30 @@ public class Comedor {
                 i = 0;
             }
 
-            if(mesaLlena[i]==false){
+            if(!mesaLlena[i]){
+                //encuentra mesa
                 mesaAsignada=i;
             }
             else{
+                //sigue buscando
                 i++;
             }
         }
 
-        sentados[i]++;
-
-        if (sentados[i] == 4) {
-            mesaLlena[i] = true;
-        }
         // Encontro mesa con espacio
-        System.out.println("Visitante " + id + " se sienta en mesa" + i);
+        System.out.println("Visitante " + id + " se sienta en mesa" + mesaAsignada);
+        
+        sentados[mesaAsignada]++;
 
-        mesa[i].await();
-
-        synchronized (this) {
-            System.out.println("Visitante " + id + " come en mesa" + i);
+        if (sentados[mesaAsignada] == 4) {
+            mesaLlena[mesaAsignada] = true;
         }
 
-        return i;
+        mesa[mesaAsignada].await();
+        
+        System.out.println("Visitante " + id + " come en mesa" + mesaAsignada);
+    
+        return mesaAsignada;
     }
 
     public synchronized void dejaMesa(int mesa, int id) {
@@ -90,7 +91,7 @@ public class Comedor {
         cantVisitantes--;
 
         this.notify();
-
+        
     }
 
 }
