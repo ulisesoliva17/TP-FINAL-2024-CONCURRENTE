@@ -3,6 +3,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class ControlTren {
+    //asd
     private static final int CAPACIDAD_TREN = 10;
     private static final long TIEMPO_ESPERA = 5; // en minutos
     private final BlockingQueue<String> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
