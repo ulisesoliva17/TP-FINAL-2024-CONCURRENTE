@@ -22,7 +22,7 @@ public class Visitante implements Runnable {
 
     public void run(){
         int num=0;
-
+        
             try {
                 /*num = comedor.llegaVisitante(id);
                 this.comiendo();

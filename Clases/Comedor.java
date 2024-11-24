@@ -26,15 +26,13 @@ public class Comedor {
         }
     }
 
-    public void llegaVisitante(int id) throws InterruptedException, BrokenBarrierException {
+    public synchronized void llegaVisitante(int id) throws InterruptedException, BrokenBarrierException {
 
         while (cantVisitantes >= capacidad) {
             this.wait();
         }
 
         cantVisitantes++;
-
-        buscaMesa(id);
     }
 
     public synchronized int buscaMesa(int id) throws InterruptedException, BrokenBarrierException {
@@ -54,8 +52,9 @@ public class Comedor {
             if(mesaLlena[i]==false){
                 mesaAsignada=i;
             }
-
-            i++;
+            else{
+                i++;
+            }
         }
 
         sentados[i]++;
@@ -82,7 +81,6 @@ public class Comedor {
         if (sentados[mesa] == 0) {
             mesaLlena[mesa] = false;
         }
-
     }
 
     public synchronized void saleVisitante(int id) {
