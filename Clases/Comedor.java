@@ -28,26 +28,29 @@ public class Comedor {
     }
 
 
-    public synchronized int llegaVisitante(int id) throws InterruptedException, BrokenBarrierException{
+    public int llegaVisitante(int id) throws InterruptedException, BrokenBarrierException{
         
         int i=0;
 
-        if(cantVisitantes == capacidad){
-            this.wait();
+        synchronized(this){
+
+            if(cantVisitantes == capacidad){
+                this.wait();
+            }
+
+            cantVisitantes++;
+
+            System.out.println("Llega visitante "+id);
+
+            //Busca mesa con espacio
+            while (mesaLlena[i]==true) {
+                i++;
+            }
+            
+            //Encontro mesa con espacio
+            System.out.println("Visitante " +id+ " se sienta en mesa"+i);
         }
-
-        cantVisitantes++;
-
-        System.out.println("Llega visitante "+id);
-
-        //Busca mesa con espacio
-        while (mesaLlena[i]==true) {
-            i++;
-        }
-        
-        //Encontro mesa con espacio
-        System.out.println("Visitante " +id+ " se sienta en mesa"+i);
-
+    
         mesa[i].await();
         mesaLlena[i] = true;
         sentados[i]++;
