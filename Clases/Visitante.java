@@ -1,3 +1,4 @@
+import java.util.concurrent.BrokenBarrierException;
 
 public class Visitante implements Runnable {
     private int id;
@@ -22,20 +23,28 @@ public class Visitante implements Runnable {
     }
 
     public void run(){
-        int num=0;
+        int num;
 
             try {
-                /*num = comedor.llegaVisitante(id);
-                this.comiendo();
-                comedor.dejaMesa(num, id);*/
+                comedor.llegaVisitante(id);
+                num=comedor.buscaMesa(id);
+                this.comiendo();                
+                comedor.dejaMesa(num, id);
+                comedor.saleVisitante(id);
 
+            /*    
             // Intercambiar ficha y jugar
             juegos.intercambiarFicha(id);
             // Obtener puntos del juego
             this.puntos = juegos.jugar(id);
             // Recibir premio basado en los puntos
             juegos.recibirPremio(puntos,id);
+            */
+            
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

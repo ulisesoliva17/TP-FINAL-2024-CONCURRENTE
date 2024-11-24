@@ -27,20 +27,22 @@ public class Comedor {
     }
 
     public synchronized void llegaVisitante(int id) throws InterruptedException, BrokenBarrierException {
-
+        
+        cantVisitantes++;
+        
         while (cantVisitantes >= capacidad) {
             this.wait();
         }
 
-        cantVisitantes++;
+        System.out.println("Entra visitante " + id);
+
+        
     }
 
     public synchronized int buscaMesa(int id) throws InterruptedException, BrokenBarrierException {
 
         int i = 0;
         int mesaAsignada=-1;
-
-        System.out.println("Entra visitante " + id);
 
         // Busca mesa con espacio
         while (mesaAsignada==-1) {
@@ -95,3 +97,4 @@ public class Comedor {
     }
 
 }
+//aaa
