@@ -1,32 +1,47 @@
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class Tren implements Runnable {
+class Tren implements Runnable {
+    private final BlockingQueue<Visitante> colaTren;
 
-    private static final long TIEMPO_MAX_ESPERA = 5 * 60 * 1000; // 5 minutos en milisegundos
-
-    public Tren() {
+    public Tren(BlockingQueue<Visitante> colaTren) {
+        this.colaTren = colaTren;
     }
 
     @Override
     public void run() {
-        try {
-            while (true) {
-                System.out.println("El tren está esperando para llenar su capacidad o 5 minutos.");
-                long inicioEspera = System.currentTimeMillis(); // Marca de tiempo inicial
+        while (true) {
+            try {
+                // Lista para almacenar los pasajeros que abordarán
+                System.out.println("Tren esperando visitantes...");
+
+                // Temporizador para medir el tiempo de espera
+                long inicio = System.currentTimeMillis();
+                long tiempoEspera = 5 * 60 * 1000; // 5 minutos en milisegundos
                 int pasajeros = 0;
 
-                // Continuar mientras no se llene el tren o no pase el tiempo máximo
-                while ((System.currentTimeMillis() - inicioEspera) < TIEMPO_MAX_ESPERA) {
-                                        
+                while (pasajeros < 10 && System.currentTimeMillis() - inicio < tiempoEspera) {
+                    // Esperar a que llegue un visitante o se cumpla el tiempo
+                    Visitante visitante = colaTren.poll(tiempoEspera - (System.currentTimeMillis() - inicio), TimeUnit.MILLISECONDS);
+
+                    if (visitante != null) {
+                        pasajeros++;
+                    } else {
+                        break; // Tiempo de espera agotado
+                    }
                 }
 
-                // Partir el tren
-                System.out.println("El tren parte con " + pasajeros + " pasajeros.");
-                Thread.sleep(2000); // Simula el recorrido del tren
+                System.out.println("Tren partiendo con " + pasajeros + " pasajeros.");
+                
+                // Simular recorrido del tren
+                Thread.sleep(3000); // Tiempo que tarda el tren en hacer el recorrido
+
+                System.out.println("Tren regresó y está listo para más pasajeros.");
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Tren interrumpido.");
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
         }
     }
 }
