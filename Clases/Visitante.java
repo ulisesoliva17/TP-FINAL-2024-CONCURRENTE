@@ -1,4 +1,5 @@
 import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.TimeoutException;
 
 public class Visitante implements Runnable {
     private int id;
@@ -28,8 +29,12 @@ public class Visitante implements Runnable {
             try {
                 comedor.llegaVisitante(id);
                 num=comedor.buscaMesa(id);
-                this.comiendo();                
-                comedor.dejaMesa(num, id);
+                
+                if(num>=0){
+                    this.comiendo();                
+                    comedor.dejaMesa(num, id);
+                }
+                
                 comedor.saleVisitante(id);
                 
             /*
@@ -44,6 +49,9 @@ public class Visitante implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TimeoutException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

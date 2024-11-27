@@ -5,8 +5,8 @@ public class Principal {
      * @param args
      */
     public static void main(String[] args) {
-        Visitante visitante[] = new Visitante[40];
-        Thread  hiloVisitante[] = new Thread[40];
+        Visitante visitante[] = new Visitante[43];
+        Thread  hiloVisitante[] = new Thread[43];
         Comedor comedor= new Comedor(5);
         Exchanger<String> exchanger = new Exchanger<>();
         AreaJuegos areaJuegos = new AreaJuegos(exchanger);

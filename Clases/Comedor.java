@@ -1,9 +1,12 @@
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class Comedor {
 
     private CyclicBarrier[] mesas;
+    private CyclicBarrier[] salidaMesa;
     private boolean[] mesaLlena;
     private int[] sentados;
     private int cantMesas;
@@ -14,31 +17,30 @@ public class Comedor {
         cantMesas = cant;
         capacidad = cantMesas * 4;
         mesas = new CyclicBarrier[cantMesas];
+        salidaMesa = new CyclicBarrier[cantMesas];
         mesaLlena = new boolean[cantMesas];
         sentados = new int[cantMesas];
 
         for (int i = 0; i < cantMesas; i++) {
-            mesas[i] = new CyclicBarrier(4);
-        }
-
-        for (int i = 0; i < cantMesas; i++) {
+            mesas[i] = new CyclicBarrier(4, ()-> System.out.println("Empiezan a comer en mesa"));
+            salidaMesa[i] = new CyclicBarrier(4);
             mesaLlena[i] = false;
-        }
+        }   
+
     }
 
     public synchronized void llegaVisitante(int id) throws InterruptedException, BrokenBarrierException {
 
-        System.out.println("Visitante " + id + " entra a wait");
         if (visitantesDentro == capacidad) {
             this.wait();
         }
         visitantesDentro++;
-        System.out.println("Visitante " + id + " sale de wait");
-        // System.out.println("Entra visitante " + id);
+
+        System.out.println("Entra visitante " + id);
 
     }
 
-    public int buscaMesa(int id) throws InterruptedException, BrokenBarrierException {
+    public int buscaMesa(int id) throws InterruptedException, BrokenBarrierException, TimeoutException {
 
         int mesaAsignada;
 
@@ -47,7 +49,7 @@ public class Comedor {
             mesaAsignada = eleccionMesa(id);
 
             // Encontro mesa con espacio
-            // System.out.println("Visitante " + id + " se sienta en mesa" + mesaAsignada);
+             System.out.println("Visitante " + id + " se sienta en mesa" + mesaAsignada);
 
             sentados[mesaAsignada]++;
 
@@ -55,10 +57,23 @@ public class Comedor {
                 mesaLlena[mesaAsignada] = true;
             }
         }
-        System.out.println("Visitante " + id + " entra a await");
-        mesas[mesaAsignada].await();
-        System.out.println("Visitante " + id + " sale de await");
-        // System.out.println("Visitante " + id + " come en mesa" + mesaAsignada);
+
+        try{            
+            mesas[mesaAsignada].await(5, TimeUnit.SECONDS);
+            
+            if(sentados[mesaAsignada]==4){
+                System.out.println("Visitante " + id + " come en mesa" + mesaAsignada);
+            }
+            else{
+                mesaAsignada=-1;
+            }    
+        }
+        catch(java.util.concurrent.TimeoutException e){
+            System.out.println("Los visitantes se cansaron de esperar");
+        }
+        catch(Exception e){
+
+        }        
 
         return mesaAsignada;
     }
@@ -69,9 +84,7 @@ public class Comedor {
         int candidata = -1;
 
         // Busca mesa con espacio
-        System.out.println("Visitante " + id + " entra a while");
         while (mesaAsignada == -1) {
-            System.out.println("Visitante" + id + "Bucleando");
             if (!mesaLlena[i]) {
                 // Encuentra mesa con espacio
                 if (candidata == -1) {
@@ -95,23 +108,34 @@ public class Comedor {
                 i = 0;
 
             }
-
         }
-        System.out.println("Visitante " + id + " sale de while");
+
         return mesaAsignada;
     }
 
-    public synchronized void dejaMesa(int mesa, int id) {
+    public void dejaMesa(int mesa, int id) throws InterruptedException, BrokenBarrierException, TimeoutException {
+        
+        synchronized(this){
+            sentados[mesa]--;
+        }        
+        
+        try{
+            salidaMesa[mesa].await(5, TimeUnit.SECONDS);
+        }
+        catch(java.util.concurrent.TimeoutException e){
+            System.out.println("Los visitantes se van");
+        }
+        catch(Exception e){
 
-        sentados[mesa]--;
-        //HACER CyclicBarrier salida
+        }
+
         mesaLlena[mesa] = false;
         
     }
 
     public synchronized void saleVisitante(int id) {
 
-        // System.out.println("Sale visitante " + id);
+        System.out.println("Sale visitante " + id);
 
         visitantesDentro--;
 
