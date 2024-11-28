@@ -4,22 +4,15 @@ import java.util.concurrent.TimeUnit;
 
 public class ControlTren {
     //asd
+    //nv
     private static final int CAPACIDAD_TREN = 10;
     private static final long TIEMPO_ESPERA = 5; // en minutos
     private final BlockingQueue <Integer> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
 
     private long tiempoInicio = System.currentTimeMillis();
 
-<<<<<<< HEAD
-    public synchronized void abordarTren(int visitante) throws InterruptedException {
-        if (cola.isEmpty()) {
-            // Si la cola está vacía, se registra el tiempo de llegada del primer visitante
-            tiempoInicio = System.currentTimeMillis();
-        }
-=======
     public synchronized void abordarTren(String visitante) throws InterruptedException {
         tiempoInicio = System.currentTimeMillis();
->>>>>>> dfc13b765505cd58bebf510e23ac6199dda32a9a
 
         cola.put(visitante);
         System.out.println(visitante + " abordó el tren. Personas en la cola: " + cola.size());
