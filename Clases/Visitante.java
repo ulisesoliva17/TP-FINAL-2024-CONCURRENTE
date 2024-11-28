@@ -4,15 +4,17 @@ import java.util.concurrent.TimeoutException;
 public class Visitante implements Runnable {
     private int id;
     private String nombre;
-    private Comedor comedor;
-    private AreaJuegos juegos;
+    private final Comedor comedor;
+    private final AreaJuegos juegos;
     private int puntos;
+    private final ControlTren control;
 
-    public Visitante(int idVisitante, Comedor com, AreaJuegos area) {
+    public Visitante(int idVisitante, Comedor com, AreaJuegos area, ControlTren c) {
         this.id = idVisitante;
         this.comedor = com;
         this.juegos = area;
         this.puntos = 0;
+        this.control = c;
     }
 
     private void comiendo() {
@@ -25,8 +27,9 @@ public class Visitante implements Runnable {
 
     public void run(){
         int num;
-
+            
             try {
+            /*
                 comedor.llegaVisitante(id);
                 num=comedor.buscaMesa(id);
                 
@@ -37,16 +40,23 @@ public class Visitante implements Runnable {
                 
                 comedor.saleVisitante(id);
                 
-            /*
+            
             // Intercambiar ficha y jugar
-            juegos.intercambiarFicha(id);
+                juegos.intercambiarFicha(id);
             // Obtener puntos del juego
-            this.puntos = juegos.jugar(id);
+                this.puntos = juegos.jugar(id);
             // Recibir premio basado en los puntos
-            juegos.recibirPremio(puntos,id);
+                juegos.recibirPremio(puntos,id);
             */
             
-        } catch (InterruptedException e) {
+            control.abordarTren(nombre);
+
+        }
+        catch(Exception e){
+
+        }
+        /* 
+        catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
             // TODO Auto-generated catch block
@@ -55,6 +65,8 @@ public class Visitante implements Runnable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        */    
+        
     }
 
     public int getPuntos() {
