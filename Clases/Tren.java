@@ -1,11 +1,8 @@
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
-
 class Tren implements Runnable {
-    private final BlockingQueue<Visitante> colaTren;
+    private ControlTren control;
 
-    public Tren(BlockingQueue<Visitante> colaTren) {
-        this.colaTren = colaTren;
+    public Tren(ControlTren c) {
+        control = c;
     }
 
     @Override
@@ -15,11 +12,12 @@ class Tren implements Runnable {
                 // Lista para almacenar los pasajeros que abordarán
                 System.out.println("Tren esperando visitantes...");
 
-                // Temporizador para medir el tiempo de espera
+                /* // Temporizador para medir el tiempo de espera
                 long inicio = System.currentTimeMillis();
                 long tiempoEspera = 5 * 60 * 1000; // 5 minutos en milisegundos
                 int pasajeros = 0;
 
+                
                 while (pasajeros < 10 && System.currentTimeMillis() - inicio < tiempoEspera) {
                     // Esperar a que llegue un visitante o se cumpla el tiempo
                     Visitante visitante = colaTren.poll(tiempoEspera - (System.currentTimeMillis() - inicio), TimeUnit.MILLISECONDS);
@@ -31,8 +29,10 @@ class Tren implements Runnable {
                     }
                 }
 
-                System.out.println("Tren partiendo con " + pasajeros + " pasajeros.");
+                System.out.println("Tren partiendo con " + pasajeros + " pasajeros.");*/
                 
+                control.partirTren();
+
                 // Simular recorrido del tren
                 Thread.sleep(3000); // Tiempo que tarda el tren en hacer el recorrido
 

@@ -27,11 +27,10 @@ public class Visitante implements Runnable {
         int num;
 
             try {
-                    System.out.println("RUN");
+
+                System.out.println("RUN");
                  
-                        tren.abordarTren(nombre);     
-                  
-                   
+                tren.abordarTren(nombre);
             
             }catch(Exception e){
 
