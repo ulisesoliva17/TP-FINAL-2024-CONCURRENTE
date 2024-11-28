@@ -4,21 +4,17 @@ import java.util.concurrent.TimeUnit;
 
 public class ControlTren {
     //asd
+    //nv
     private static final int CAPACIDAD_TREN = 10;
     private static final long TIEMPO_ESPERA = 5; // en minutos
-    private final BlockingQueue <Integer> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
+    private final BlockingQueue <String> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
 
     private long tiempoInicio = System.currentTimeMillis();
 
-    public synchronized void abordarTren(int visitante) throws InterruptedException {
-        if (cola.isEmpty()) {
-            // Si la cola está vacía, se registra el tiempo de llegada del primer visitante
-            tiempoInicio = System.currentTimeMillis();
-            notify(); // Despierta tren
-        }
+    public synchronized void abordarTren(String visitante) throws InterruptedException {
+        tiempoInicio = System.currentTimeMillis();
 
         cola.put(visitante);
-
         System.out.println(visitante + " abordó el tren. Personas en la cola: " + cola.size());
         System.out.println("TiempoInicio: "+tiempoInicio);
         if (cola.size() == CAPACIDAD_TREN || seCumplioTiempo()) {
@@ -33,9 +29,9 @@ public class ControlTren {
         //notifyAll(); // Notifica a cualquier hilo en espera (opcional)
     }
 
-    public synchronized void llegaTren() {
-        andando=false;
-        notifyAll();
+    private boolean seCumplioTiempo() {
+        long tiempoActual = System.currentTimeMillis();
+        return (tiempoActual - tiempoInicio) >= TimeUnit.MINUTES.toMillis(TIEMPO_ESPERA);
     }
 }
 

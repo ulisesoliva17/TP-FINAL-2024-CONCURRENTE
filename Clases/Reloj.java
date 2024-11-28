@@ -30,7 +30,7 @@ public class Reloj implements Runnable{
                     }
                     case nuevo_dia: {
                         hora_actual.set(0);
-                        System.out.println("[CLASE RELOJ] Comienza un nuevo día");
+                        System.out.println("[CLASE RELOJ] Comienza un nuevo dÃ­a");
                     }
                     default :{
                     }

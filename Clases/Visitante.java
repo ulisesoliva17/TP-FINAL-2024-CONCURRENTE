@@ -1,9 +1,8 @@
-
 public class Visitante implements Runnable {
     private int id;
     private String nombre;
-    private final Comedor comedor;
-    private final AreaJuegos juegos;
+    private Comedor comedor;
+    private AreaJuegos juegos;
     private int puntos;
     private ControlTren tren;
 
@@ -13,6 +12,7 @@ public class Visitante implements Runnable {
         this.juegos = area;
         this.puntos = 0;
         tren = tr;
+        nombre="Visitante"+id;
     }
 
     private void comiendo() {
@@ -25,11 +25,11 @@ public class Visitante implements Runnable {
 
     public void run(){
         int num;
-            
+
             try {
                     System.out.println("RUN");
                  
-                        tren.abordarTren(id);     
+                        tren.abordarTren(nombre);     
                   
                    
             
@@ -47,13 +47,13 @@ public class Visitante implements Runnable {
                 
                 comedor.saleVisitante(id);*/
                 
-            
+            /*
             // Intercambiar ficha y jugar
-                juegos.intercambiarFicha(id);
+            juegos.intercambiarFicha(id);
             // Obtener puntos del juego
-                this.puntos = juegos.jugar(id);
+            this.puntos = juegos.jugar(id);
             // Recibir premio basado en los puntos
-                juegos.recibirPremio(puntos,id);
+            juegos.recibirPremio(puntos,id);
             */
         /*     
         } catch (InterruptedException e) {

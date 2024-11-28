@@ -35,3 +35,4 @@ public class AreaJuegos {
         System.out.println("El visitante"+id+" recibio el premio: "+premio);
     }
 }
+

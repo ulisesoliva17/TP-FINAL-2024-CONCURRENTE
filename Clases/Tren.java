@@ -1,25 +1,47 @@
-class Tren implements Runnable {
-    private final ControlTren control;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
-    public Tren(ControlTren c) {
-        control = c;
+class Tren implements Runnable {
+    private final BlockingQueue<Visitante> colaTren;
+
+    public Tren(BlockingQueue<Visitante> colaTren) {
+        this.colaTren = colaTren;
     }
 
     @Override
     public void run() {
-        int i = 0;
         while (true) {
             try {
-                control.chequeoSalida();
+                // Lista para almacenar los pasajeros que abordarán
+                System.out.println("Tren esperando visitantes...");
+
+                // Temporizador para medir el tiempo de espera
+                long inicio = System.currentTimeMillis();
+                long tiempoEspera = 5 * 60 * 1000; // 5 minutos en milisegundos
+                int pasajeros = 0;
+
+                while (pasajeros < 10 && System.currentTimeMillis() - inicio < tiempoEspera) {
+                    // Esperar a que llegue un visitante o se cumpla el tiempo
+                    Visitante visitante = colaTren.poll(tiempoEspera - (System.currentTimeMillis() - inicio), TimeUnit.MILLISECONDS);
+
+                    if (visitante != null) {
+                        pasajeros++;
+                    } else {
+                        break; // Tiempo de espera agotado
+                    }
+                }
+
+                System.out.println("Tren partiendo con " + pasajeros + " pasajeros.");
+                
                 // Simular recorrido del tren
                 Thread.sleep(3000); // Tiempo que tarda el tren en hacer el recorrido
-                control.llegaTren();
+
+                System.out.println("Tren regresó y está listo para más pasajeros.");
 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Tren interrumpido.");
             }
-            i++;
         }
     }
 }
