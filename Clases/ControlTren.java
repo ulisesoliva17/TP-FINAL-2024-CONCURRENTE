@@ -11,10 +11,7 @@ public class ControlTren {
     private long tiempoInicio = System.currentTimeMillis();
 
     public synchronized void abordarTren(String visitante) throws InterruptedException {
-        if (cola.isEmpty()) {
-            // Si la cola está vacía, se registra el tiempo de llegada del primer visitante
-            tiempoInicio = System.currentTimeMillis();
-        }
+        tiempoInicio = System.currentTimeMillis();
 
         cola.put(visitante);
         System.out.println(visitante + " abordó el tren. Personas en la cola: " + cola.size());
