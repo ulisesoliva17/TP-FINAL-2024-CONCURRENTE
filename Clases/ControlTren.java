@@ -6,13 +6,9 @@ public class ControlTren {
     //asd
     private static final int CAPACIDAD_TREN = 10;
     private static final long TIEMPO_ESPERA = 5; // en minutos
-    private final BlockingQueue<String> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
-    private boolean andando = false;
-    private long tiempoInicio;
+    private final BlockingQueue <Integer> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
 
-    public ControlTren(){
-        
-    }
+    private long tiempoInicio = System.currentTimeMillis();
 
     public synchronized void abordarTren(String visitante) throws InterruptedException {
 

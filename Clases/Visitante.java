@@ -1,5 +1,3 @@
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.TimeoutException;
 
 public class Visitante implements Runnable {
     private int id;
@@ -14,7 +12,7 @@ public class Visitante implements Runnable {
         this.comedor = com;
         this.juegos = area;
         this.puntos = 0;
-        this.control = c;
+        tren = tr;
     }
 
     private void comiendo() {
@@ -29,7 +27,16 @@ public class Visitante implements Runnable {
         int num;
             
             try {
-            /*
+                    System.out.println("RUN");
+                 
+                        tren.abordarTren(id);     
+                  
+                   
+            
+            }catch(Exception e){
+
+            }
+                /* 
                 comedor.llegaVisitante(id);
                 num=comedor.buscaMesa(id);
                 
