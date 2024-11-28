@@ -7,12 +7,14 @@ public class Visitante implements Runnable {
     private Comedor comedor;
     private AreaJuegos juegos;
     private int puntos;
+    private ControlTren tren;
 
-    public Visitante(int idVisitante, Comedor com, AreaJuegos area) {
+    public Visitante(int idVisitante, Comedor com, AreaJuegos area, ControlTren tr) {
         this.id = idVisitante;
         this.comedor = com;
         this.juegos = area;
         this.puntos = 0;
+        tren = tr;
     }
 
     private void comiendo() {
@@ -27,6 +29,16 @@ public class Visitante implements Runnable {
         int num;
 
             try {
+                    System.out.println("RUN");
+                 
+                        tren.abordarTren(id);     
+                  
+                   
+            
+            }catch(Exception e){
+
+            }
+                /* 
                 comedor.llegaVisitante(id);
                 num=comedor.buscaMesa(id);
                 
@@ -35,7 +47,7 @@ public class Visitante implements Runnable {
                     comedor.dejaMesa(num, id);
                 }
                 
-                comedor.saleVisitante(id);
+                comedor.saleVisitante(id);*/
                 
             /*
             // Intercambiar ficha y jugar
@@ -45,7 +57,7 @@ public class Visitante implements Runnable {
             // Recibir premio basado en los puntos
             juegos.recibirPremio(puntos,id);
             */
-            
+        /*     
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
@@ -54,7 +66,7 @@ public class Visitante implements Runnable {
         } catch (TimeoutException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        }*/
     }
 
     public int getPuntos() {
