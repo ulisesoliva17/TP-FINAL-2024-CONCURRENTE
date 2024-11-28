@@ -28,7 +28,4 @@ public class RealidadVirtual {
         System.out.println(visitante + " Devuelve equipoCompleto.");
         notifyAll();
     }
-
-
-
 }

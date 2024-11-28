@@ -20,7 +20,7 @@ public class ControlTren {
         if(cola.size()==1){
             sem.release();
         }
-
+        
         else if(cola.size()==10){
             reloj.put(1);
         }
