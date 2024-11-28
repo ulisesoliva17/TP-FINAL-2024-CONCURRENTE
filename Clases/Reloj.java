@@ -1,15 +1,16 @@
 import java.util.concurrent.atomic.AtomicInteger;
-public class Reloj implements Runnable{
-    private static final int hora_apuertura = 9; 
+
+public class Reloj implements Runnable {
+    private static final int hora_apuertura = 9;
     private static final int hora_cierra = 18;
     private static final int nuevo_dia = 24;
 
     private final AtomicInteger hora_actual;
     private Parque parque;
 
-    public Reloj(AtomicInteger hora,Parque par){
+    public Reloj(AtomicInteger hora, Parque par) {
         hora_actual = hora;
-        parque=par;
+        parque = par;
     }
 
     public void run() {
@@ -17,7 +18,7 @@ public class Reloj implements Runnable{
             try {
                 Thread.sleep(4000);
                 hora_actual.addAndGet(1);
-                System.out.println("[CLASE RELOJ]. Hora Actual: "+hora_actual);
+                System.out.println("[CLASE RELOJ]. Hora Actual: " + hora_actual);
 
                 switch (hora_actual.get()) {
                     case hora_apuertura: {
@@ -32,7 +33,7 @@ public class Reloj implements Runnable{
                         hora_actual.set(0);
                         System.out.println("[CLASE RELOJ] Comienza un nuevo dÃ­a");
                     }
-                    default :{
+                    default: {
                     }
                 }
                 Thread.sleep(1000);

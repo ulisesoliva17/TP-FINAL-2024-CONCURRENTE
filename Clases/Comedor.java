@@ -22,10 +22,10 @@ public class Comedor {
         sentados = new int[cantMesas];
 
         for (int i = 0; i < cantMesas; i++) {
-            mesas[i] = new CyclicBarrier(4, ()-> System.out.println("Empiezan a comer en mesa"));
+            mesas[i] = new CyclicBarrier(4, () -> System.out.println("Empiezan a comer en mesa"));
             salidaMesa[i] = new CyclicBarrier(4);
             mesaLlena[i] = false;
-        }   
+        }
 
     }
 
@@ -49,7 +49,7 @@ public class Comedor {
             mesaAsignada = eleccionMesa(id);
 
             // Encontro mesa con espacio
-             System.out.println("Visitante " + id + " se sienta en mesa" + mesaAsignada);
+            System.out.println("Visitante " + id + " se sienta en mesa" + mesaAsignada);
 
             sentados[mesaAsignada]++;
 
@@ -58,22 +58,19 @@ public class Comedor {
             }
         }
 
-        try{            
+        try {
             mesas[mesaAsignada].await(5, TimeUnit.SECONDS);
-            
-            if(sentados[mesaAsignada]==4){
-                System.out.println("Visitante " + id + " come en mesa" + mesaAsignada);
-            }
-            else{
-                mesaAsignada=-1;
-            }    
-        }
-        catch(java.util.concurrent.TimeoutException e){
-            System.out.println("Los visitantes se cansaron de esperar");
-        }
-        catch(Exception e){
 
-        }        
+            if (sentados[mesaAsignada] == 4) {
+                System.out.println("Visitante " + id + " come en mesa" + mesaAsignada);
+            } else {
+                mesaAsignada = -1;
+            }
+        } catch (java.util.concurrent.TimeoutException e) {
+            System.out.println("Los visitantes se cansaron de esperar");
+        } catch (Exception e) {
+
+        }
 
         return mesaAsignada;
     }
@@ -100,7 +97,7 @@ public class Comedor {
 
             if (i == cantMesas) {
                 // Chequeo todas las mesas
-                
+
                 // Habia al menos una con lugar
 
                 mesaAsignada = candidata; // Elije la mesa mas ocupada
@@ -114,23 +111,21 @@ public class Comedor {
     }
 
     public void dejaMesa(int mesa, int id) throws InterruptedException, BrokenBarrierException, TimeoutException {
-        
-        synchronized(this){
+
+        synchronized (this) {
             sentados[mesa]--;
-        }        
-        
-        try{
+        }
+
+        try {
             salidaMesa[mesa].await(5, TimeUnit.SECONDS);
-        }
-        catch(java.util.concurrent.TimeoutException e){
+        } catch (java.util.concurrent.TimeoutException e) {
             System.out.println("Los visitantes se van");
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
         mesaLlena[mesa] = false;
-        
+
     }
 
     public synchronized void saleVisitante(int id) {

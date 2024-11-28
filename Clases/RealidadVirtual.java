@@ -10,7 +10,7 @@ public class RealidadVirtual {
     }
 
     public synchronized void recibirEquipoCompleto(String visitante) throws InterruptedException {
-        
+
         while (cantVisor < 1 || cantManopla < 2 || cantBase < 1) {
             wait();
         }

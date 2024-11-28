@@ -6,8 +6,8 @@ public class Principal {
      */
     public static void main(String[] args) {
         Visitante visitante[] = new Visitante[21];
-        Thread  hiloVisitante[] = new Thread[21];
-        Comedor comedor= new Comedor(5);
+        Thread hiloVisitante[] = new Thread[21];
+        Comedor comedor = new Comedor(5);
         Exchanger<String> exchanger = new Exchanger<>();
         AreaJuegos areaJuegos = new AreaJuegos(exchanger);
         ControlTren controlTren = new ControlTren();

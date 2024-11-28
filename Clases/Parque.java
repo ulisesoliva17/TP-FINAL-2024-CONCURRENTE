@@ -18,7 +18,8 @@ public class Parque {
         // no notifique que el aeropuerto abrió.
         try {
             while (!estaAbierto) {
-                System.out.println("[CLASE PARQUE].El Parque esta cerrado. Debo esperar a que se abra para poder ingresar");
+                System.out.println(
+                        "[CLASE PARQUE].El Parque esta cerrado. Debo esperar a que se abra para poder ingresar");
                 wait();
             }
             System.out.println("[CLASE PARQUE].Ingrese.");
