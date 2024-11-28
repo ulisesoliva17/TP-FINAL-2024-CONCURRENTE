@@ -7,7 +7,7 @@ public class ControlTren {
     //nv
     private static final int CAPACIDAD_TREN = 10;
     private static final long TIEMPO_ESPERA = 5; // en minutos
-    private final BlockingQueue <Integer> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
+    private final BlockingQueue <String> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
 
     private long tiempoInicio = System.currentTimeMillis();
 
