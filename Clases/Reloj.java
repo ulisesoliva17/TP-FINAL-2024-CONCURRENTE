@@ -13,8 +13,6 @@ public class Reloj implements Runnable{
     }
 
     public void run() {
-        
-
         while (true) {
             try {
                 Thread.sleep(4000);
@@ -37,14 +35,10 @@ public class Reloj implements Runnable{
                     default :{
                     }
                 }
-
-
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 System.out.println("Error en Reloj.run: " + ex.getMessage());
             }
         }
     }
-
-
 }
