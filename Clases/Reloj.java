@@ -16,7 +16,7 @@ public class Reloj implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(8000);
                 hora_actual.addAndGet(1);
                 System.out.println("[CLASE RELOJ]. Hora Actual: " + hora_actual);
 
