@@ -22,7 +22,7 @@ public class Principal {
         hiloReloj.start();
 
         for (int i = 0; i < hiloVisitante.length; i++) {
-            visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren);
+            visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren,rel);
             hiloVisitante[i] = new Thread(visitante[i]);
             hiloVisitante[i].start();
         }

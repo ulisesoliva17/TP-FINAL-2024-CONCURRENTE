@@ -6,8 +6,9 @@ public class Visitante implements Runnable {
     private int puntos;
     private ControlTren tren;
     private Parque parque;
+    private Reloj reloj;
 
-    public Visitante(int idVisitante, Parque par, Comedor com, AreaJuegos area, ControlTren tr) {
+    public Visitante(int idVisitante, Parque par, Comedor com, AreaJuegos area, ControlTren tr,Reloj re) {
         this.id = idVisitante;
         parque = par;
         this.comedor = com;
@@ -33,9 +34,9 @@ public class Visitante implements Runnable {
         int num;
 
         try {
-
-            tren.abordarTren(nombre);
             parque.ingresarParque(this, id);
+            
+            tren.abordarTren(nombre);
             comedor.llegaVisitante(id);
             num=comedor.buscaMesa(id);
           
