@@ -38,7 +38,7 @@ public class Visitante implements Runnable {
             //tren.abordarTren(nombre);
             parque.ingresarParque(this,id);
             comedor.llegaVisitante(id);
-          num=comedor.buscaMesa(id);
+            num=comedor.buscaMesa(id);
           
           if(num>=0){
           this.comiendo();
