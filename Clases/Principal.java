@@ -20,9 +20,10 @@ public class Principal {
         Reloj rel= new Reloj(hora, parque);
         Thread hiloReloj= new Thread(rel);
         hiloReloj.start();
+        RealidadVirtual virtual = new RealidadVirtual(20, 10, 8);
 
         for (int i = 0; i < hiloVisitante.length; i++) {
-            visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren);
+            visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren, virtual);
             hiloVisitante[i] = new Thread(visitante[i]);
             hiloVisitante[i].start();
         }
