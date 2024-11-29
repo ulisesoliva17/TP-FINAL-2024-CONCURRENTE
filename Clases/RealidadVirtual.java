@@ -12,7 +12,7 @@ public class RealidadVirtual {
     public synchronized void recibirEquipoCompleto(String visitante) throws InterruptedException {
 
         while (cantVisor < 1 || cantManopla < 2 || cantBase < 1) {
-            wait();
+            //wait();
         }
 
         cantVisor--;
@@ -26,6 +26,6 @@ public class RealidadVirtual {
         cantManopla -= 2;
         cantBase--;
         System.out.println(visitante + " Devuelve equipoCompleto.");
-        notifyAll();
+        //notifyAll();
     }
 }

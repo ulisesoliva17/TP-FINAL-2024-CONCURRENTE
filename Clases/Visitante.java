@@ -11,7 +11,8 @@ public class Visitante implements Runnable {
     private RealidadVirtual virtual;
     private Reloj reloj;
 
-    public Visitante(int idVisitante, Parque par, Comedor com, AreaJuegos area, ControlTren tr, RealidadVirtual virt,Reloj re) {
+    public Visitante(int idVisitante, Parque par, Comedor com, AreaJuegos area, ControlTren tr, RealidadVirtual virt,
+            Reloj re) {
         this.id = idVisitante;
         parque = par;
         this.comedor = com;
@@ -20,7 +21,7 @@ public class Visitante implements Runnable {
         tren = tr;
         virtual = virt;
         nombre = "Visitante" + id;
-        reloj=re;
+        reloj = re;
     }
 
     private void comiendo() {
@@ -39,33 +40,33 @@ public class Visitante implements Runnable {
         int num;
 
         try {
-            AtomicInteger hora = new AtomicInteger(7);
+            AtomicInteger hora = new AtomicInteger(19);
             parque.ingresarParque(this, id);
 
-            if (reloj.verHora()==hora) {
+            while (reloj.verHora().get() <= hora.get()) {
                 // Intercambiar ficha y jugar
-            juegos.intercambiarFicha(id);
-            // Obtener puntos del juego
-            this.puntos = juegos.jugar(id);
-            // Recibir premio basado en los puntos
-            juegos.recibirPremio(puntos, id);
+                juegos.intercambiarFicha(id);
+                // Obtener puntos del juego
+                this.puntos = juegos.jugar(id);
+                // Recibir premio basado en los puntos
+                juegos.recibirPremio(puntos, id);
 
-            comedor.llegaVisitante(id);
+                comedor.llegaVisitante(id);
 
-            num = comedor.buscaMesa(id);
+                num = comedor.buscaMesa(id);
 
-            if (num >= 0) {
-                this.comiendo();
-                comedor.dejaMesa(num, id);
-            }
+                if (num >= 0) {
+                    this.comiendo();
+                    comedor.dejaMesa(num, id);
+                }
 
-            comedor.saleVisitante(id);
+                comedor.saleVisitante(id);
 
-            tren.abordarTren(nombre);
+                //tren.abordarTren(nombre);
 
-            virtual.recibirEquipoCompleto(nombre);
+                virtual.recibirEquipoCompleto(nombre);
 
-            virtual.devolverEquipo(nombre);
+                virtual.devolverEquipo(nombre);
             }
 
             parque.saleParque();

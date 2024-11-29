@@ -119,7 +119,7 @@ public class Comedor {
         try {
             salidaMesa[mesa].await(5, TimeUnit.SECONDS);
         } catch (java.util.concurrent.TimeoutException e) {
-            System.out.println("Los visitantes se van");
+          
         } catch (Exception e) {
 
         }
@@ -130,7 +130,7 @@ public class Comedor {
 
     public synchronized void saleVisitante(int id) {
 
-        System.out.println("Sale visitante " + id);
+        System.out.println("Sale visitante del comedor" + id);
 
         visitantesDentro--;
 
