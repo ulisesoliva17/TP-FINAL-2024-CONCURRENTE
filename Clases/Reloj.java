@@ -24,14 +24,17 @@ public class Reloj implements Runnable {
                     case hora_apuertura: {
                         parque.comenzarHorarioAtencion();
                         Thread.sleep(1000);
+                        break;
                     }
                     case hora_cierra: {
                         parque.terminarHorarioAtencion();
                         Thread.sleep(1000);
+                        break;
                     }
                     case nuevo_dia: {
                         hora_actual.set(0);
-                        System.out.println("[CLASE RELOJ] Comienza un nuevo dÃ­a");
+                        System.out.println("[CLASE RELOJ] Comienza un nuevo dia");
+                        break;
                     }
                     default: {
                     }

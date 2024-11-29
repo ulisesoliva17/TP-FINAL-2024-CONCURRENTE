@@ -12,17 +12,17 @@ public class Parque {
      *
      * @param pasajero pasajero que desea ingresar
      */
-    public synchronized void ingresarParque(Visitante visitante) {
+    public synchronized void ingresarParque(Visitante visitante,int id) {
         // Se utiliza un lock implicito para el objeto this, esto para que
         // los pasajeros no puedan ingresar al aeropuerto mientras el reloj
         // no notifique que el aeropuerto abrió.
         try {
             while (!estaAbierto) {
                 System.out.println(
-                        "[CLASE PARQUE].El Parque esta cerrado. Debo esperar a que se abra para poder ingresar");
+                        "[CLASE PARQUE].El Parque esta cerrado. Esperare a que se abra para poder ingresar");
                 wait();
             }
-            System.out.println("[CLASE PARQUE].Ingrese.");
+            System.out.println("[CLASE PARQUE].Ingreso "+id);
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
             System.out.println("[CLASE PARQUE].Error en Parque.ingresarParque" + ex.getMessage());
@@ -48,5 +48,6 @@ public class Parque {
     public synchronized void terminarHorarioAtencion() {
         estaAbierto = false;
         System.out.println("[CLASE PARQUE] Termino horario de atencion.");
+        System.out.println("[CLASE PARQUE] Se fueron todos los visitantes");
     }
 }
