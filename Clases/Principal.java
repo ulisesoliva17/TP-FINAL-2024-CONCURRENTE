@@ -23,11 +23,7 @@ public class Principal {
         RealidadVirtual virtual = new RealidadVirtual(20, 10, 8);
 
         for (int i = 0; i < hiloVisitante.length; i++) {
-<<<<<<< HEAD
-            visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren,rel);
-=======
-            visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren, virtual);
->>>>>>> ce86365c96c55ba9e8350a265b8895eb5e6af2c3
+            visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren,virtual,rel);
             hiloVisitante[i] = new Thread(visitante[i]);
             hiloVisitante[i].start();
         }

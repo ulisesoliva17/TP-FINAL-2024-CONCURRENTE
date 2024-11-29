@@ -12,6 +12,9 @@ public class Reloj implements Runnable {
         hora_actual = hora;
         parque = par;
     }
+    public AtomicInteger verHora(){
+        return hora_actual;
+    }
 
     public void run() {
         while (true) {
