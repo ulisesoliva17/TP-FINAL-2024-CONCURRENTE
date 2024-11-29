@@ -62,6 +62,8 @@ public class Visitante implements Runnable {
 
             virtual.devolverEquipo(nombre);
 
+            parque.saleParque();
+
         } catch (Exception e) {
         }
 

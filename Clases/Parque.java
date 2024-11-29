@@ -54,8 +54,11 @@ public class Parque {
 
     public synchronized void saleParque(){
         cantVisitantes--;
+        
         if(cantVisitantes==0){
             System.out.println("Se fueron todos");
+        }else{
+            System.out.println("Quedan "+cantVisitantes+" visitantes en el parque");
         }
     }
 }
