@@ -28,7 +28,7 @@ public class Comedor {
         }
 
     }
-
+    
     public synchronized void llegaVisitante(int id) throws InterruptedException, BrokenBarrierException {
 
         if (visitantesDentro == capacidad) {
@@ -115,15 +115,8 @@ public class Comedor {
         synchronized (this) {
             sentados[mesa]--;
         }
-
-        try {
-            salidaMesa[mesa].await(5, TimeUnit.SECONDS);
-        } catch (java.util.concurrent.TimeoutException e) {
-          
-        } catch (Exception e) {
-
-        }
-
+        
+        salidaMesa[mesa].await();
         mesaLlena[mesa] = false;
 
     }
@@ -135,7 +128,6 @@ public class Comedor {
         visitantesDentro--;
 
         this.notify();
-
     }
 
 }
