@@ -26,6 +26,6 @@ public class RealidadVirtual {
         cantManopla -= 2;
         cantBase--;
         System.out.println(visitante + " Devuelve equipoCompleto.");
-        notifyAll();
+        notify();
     }
 }
