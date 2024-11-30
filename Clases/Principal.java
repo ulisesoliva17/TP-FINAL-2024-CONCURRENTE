@@ -21,6 +21,9 @@ public class Principal {
         Thread hiloReloj= new Thread(rel);
         hiloReloj.start();
         RealidadVirtual virtual = new RealidadVirtual(20, 10, 8);
+        Encargado encargado = new Encargado(areaJuegos);
+        Thread hiloEncargado = new Thread(encargado);
+        hiloEncargado.start();
 
         for (int i = 0; i < hiloVisitante.length; i++) {
             visitante[i] = new Visitante(i + 1,parque, comedor, areaJuegos, controlTren,virtual,rel);
