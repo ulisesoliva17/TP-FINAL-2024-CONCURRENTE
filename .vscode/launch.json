@@ -9,6 +9,13 @@
             "name": "Principal",
             "request": "launch",
             "mainClass": "Principal",
+            "projectName": "TP-FINAL-2024-CONCURRENTE_16ebfe1a"
+        },
+        {
+            "type": "java",
+            "name": "Principal",
+            "request": "launch",
+            "mainClass": "Principal",
             "projectName": "TP-FINAL-2024-CONCURRENTE_6fcd0ffc"
         },
         {

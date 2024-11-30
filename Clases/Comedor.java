@@ -116,7 +116,7 @@ public class Comedor {
             sentados[mesa]--;
         }
         
-        salidaMesa[mesa].await();
+        salidaMesa[mesa].await(5, TimeUnit.SECONDS);
         mesaLlena[mesa] = false;
 
     }

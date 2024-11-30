@@ -51,7 +51,7 @@ public class Visitante implements Runnable {
                 this.puntos = juegos.jugar(id);
                 // Recibir premio basado en los puntos
                 juegos.recibirPremio(puntos, id);
-
+                */
                 comedor.llegaVisitante(id);
 
                 num = comedor.buscaMesa(id);
@@ -62,18 +62,21 @@ public class Visitante implements Runnable {
                 }
 
                 comedor.saleVisitante(id);
-                */
-                tren.abordarTren(nombre);
+                
+                //tren.abordarTren(nombre);
 
                 //virtual.recibirEquipoCompleto(nombre);
 
                 //virtual.devolverEquipo(nombre);
             }
 
-            parque.saleParque();
+            
 
         } catch (Exception e) {
         }
 
+        finally{
+            parque.saleParque();
+        }
     }
 }
