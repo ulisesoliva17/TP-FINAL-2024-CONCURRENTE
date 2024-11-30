@@ -11,7 +11,7 @@ public class Principal {
         Parque parque= new Parque();
         Comedor comedor = new Comedor(5);
         Exchanger<String> exchanger = new Exchanger<>();
-        AreaJuegos areaJuegos = new AreaJuegos(exchanger);
+        AreaJuegos areaJuegos = new AreaJuegos();
         ControlTren controlTren = new ControlTren();
         Tren tren = new Tren(controlTren);
         Thread hiloTren = new Thread(tren);

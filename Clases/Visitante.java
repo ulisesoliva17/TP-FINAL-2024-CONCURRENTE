@@ -51,11 +51,12 @@ public class Visitante implements Runnable {
 
                 
                 // Intercambiar ficha y jugar
-                juegos.intercambiarFicha(id);
+                /*juegos.intercambiarFicha(id);
                 // Obtener puntos del juego
                 this.puntos = juegos.jugar(id);
                 // Recibir premio basado en los puntos
-                juegos.recibirPremio(puntos, id);
+                juegos.recibirPremio(puntos, id);*/
+                juegos.jugar();
                 
                 
                 
