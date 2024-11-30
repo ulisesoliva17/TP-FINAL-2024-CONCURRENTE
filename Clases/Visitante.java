@@ -43,7 +43,8 @@ public class Visitante implements Runnable {
             AtomicInteger hora = new AtomicInteger(19);
             parque.ingresarParque(this, id);
 
-            while (reloj.verHora().get() <= hora.get()) {
+            if (reloj.verHora().get() <= hora.get()) {
+                /*
                 // Intercambiar ficha y jugar
                 juegos.intercambiarFicha(id);
                 // Obtener puntos del juego
@@ -61,12 +62,12 @@ public class Visitante implements Runnable {
                 }
 
                 comedor.saleVisitante(id);
+                */
+                tren.abordarTren(nombre);
 
-                //tren.abordarTren(nombre);
+                //virtual.recibirEquipoCompleto(nombre);
 
-                virtual.recibirEquipoCompleto(nombre);
-
-                virtual.devolverEquipo(nombre);
+                //virtual.devolverEquipo(nombre);
             }
 
             parque.saleParque();
