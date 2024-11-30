@@ -41,17 +41,24 @@ public class Visitante implements Runnable {
 
         try {
             AtomicInteger hora = new AtomicInteger(19);
-            parque.ingresarParque(this, id);
+            parque.ingresarParque(id);
+
+            System.out.println("Por hacer actividad "+id);
 
             if (reloj.verHora().get() <= hora.get()) {
-                /*
+                
+                System.out.println("Ingrese a hacer actividad "+ id);
+
+                
                 // Intercambiar ficha y jugar
                 juegos.intercambiarFicha(id);
                 // Obtener puntos del juego
                 this.puntos = juegos.jugar(id);
                 // Recibir premio basado en los puntos
                 juegos.recibirPremio(puntos, id);
-                */
+                
+                
+                
                 comedor.llegaVisitante(id);
 
                 num = comedor.buscaMesa(id);
@@ -63,11 +70,11 @@ public class Visitante implements Runnable {
 
                 comedor.saleVisitante(id);
                 
-                //tren.abordarTren(nombre);
+                tren.abordarTren(nombre);
 
-                //virtual.recibirEquipoCompleto(nombre);
+                virtual.recibirEquipoCompleto(nombre);
 
-                //virtual.devolverEquipo(nombre);
+                virtual.devolverEquipo(nombre);
             }
 
             
@@ -76,7 +83,7 @@ public class Visitante implements Runnable {
         }
 
         finally{
-            parque.saleParque();
+            parque.saleParque(id);
         }
     }
 }

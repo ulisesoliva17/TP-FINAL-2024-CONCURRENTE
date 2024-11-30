@@ -1,7 +1,9 @@
 import java.util.concurrent.Exchanger;
+import java.util.concurrent.Semaphore;
 
 public class AreaJuegos {
     private Exchanger<String> exchanger;
+    private Semaphore sem = new Semaphore(0);
 
     public AreaJuegos(Exchanger<String> exchanger) {
         this.exchanger = exchanger;
@@ -9,6 +11,8 @@ public class AreaJuegos {
 
     public void intercambiarFicha(int id) throws InterruptedException {
         // Intercambiar ficha con el visitante
+        sem.release();
+
         String ficha = exchanger.exchange("Ficha del visitante: " + id);
         System.out.println("Encargado recibió: " + ficha);
     }
@@ -22,6 +26,8 @@ public class AreaJuegos {
 
     public void recibirPremio(int puntos, int id) throws InterruptedException {
         // Determinar premio basado en los puntos
+        sem.acquire();
+
         String premio;
         if (puntos > 80) {
             premio = "Gran premio";

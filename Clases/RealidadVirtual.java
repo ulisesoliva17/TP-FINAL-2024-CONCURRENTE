@@ -22,9 +22,9 @@ public class RealidadVirtual {
     }
 
     public synchronized void devolverEquipo(String visitante) {
-        cantVisor--;
-        cantManopla -= 2;
-        cantBase--;
+        cantVisor++;
+        cantManopla += 2;
+        cantBase++;
         System.out.println(visitante + " Devuelve equipoCompleto.");
         notify();
     }
