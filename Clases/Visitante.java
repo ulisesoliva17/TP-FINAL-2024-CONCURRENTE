@@ -42,22 +42,12 @@ public class Visitante implements Runnable {
         try {
             AtomicInteger hora = new AtomicInteger(19);
             parque.ingresarParque(id);
-
-            System.out.println("Por hacer actividad "+id);
-
-            if (reloj.verHora().get() <= hora.get()) {
+            
+            while (reloj.verHora().get() <= hora.get()) {
                 
-                System.out.println("Ingrese a hacer actividad "+ id);
-
-                
-                // Intercambiar ficha y jugar
-                /*juegos.intercambiarFicha(id);
-                // Obtener puntos del juego
-                this.puntos = juegos.jugar(id);
+                puntos=juegos.jugar(id);
                 // Recibir premio basado en los puntos
-                juegos.recibirPremio(puntos, id);*/
-                juegos.jugar();
-                
+                juegos.recibirPremio(puntos, id);
                 
                 
                 comedor.llegaVisitante(id);

@@ -1,4 +1,3 @@
-import java.util.concurrent.Exchanger;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Principal {
@@ -6,11 +5,10 @@ public class Principal {
      * @param args
      */
     public static void main(String[] args) {
-        Visitante visitante[] = new Visitante[21];
-        Thread hiloVisitante[] = new Thread[21];
+        Visitante visitante[] = new Visitante[11];
+        Thread hiloVisitante[] = new Thread[11];
         Parque parque= new Parque();
         Comedor comedor = new Comedor(5);
-        Exchanger<String> exchanger = new Exchanger<>();
         AreaJuegos areaJuegos = new AreaJuegos();
         ControlTren controlTren = new ControlTren();
         Tren tren = new Tren(controlTren);

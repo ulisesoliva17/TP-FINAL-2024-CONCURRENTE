@@ -16,7 +16,7 @@ public class ControlTren {
         cola.put(visitante);
         System.out.println(visitante + " espera al tren. Personas en la cola: " + cola.size());
         // System.out.println("TiempoInicio: "+tiempoInicio);
-
+        //Craneo: Pensamos en que largara cuando al menos una persona se suba
         if (cola.size() == 1) {
             sem.release();
         }
