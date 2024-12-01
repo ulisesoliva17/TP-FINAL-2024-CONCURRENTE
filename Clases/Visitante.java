@@ -20,7 +20,7 @@ public class Visitante implements Runnable {
         this.puntos = 0;
         tren = tr;
         virtual = virt;
-        nombre = "Visitante" + id;
+        nombre = "Visitante " + id;
         reloj = re;
     }
 

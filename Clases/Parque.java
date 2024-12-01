@@ -24,7 +24,7 @@ public class Parque {
                 wait();
             }
 
-            System.out.println("[CLASE PARQUE].Ingreso el Visitante "+id);
+            System.out.println("[CLASE PARQUE].Ingreso el visitante "+id);
             cantVisitantes++;
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
@@ -60,7 +60,7 @@ public class Parque {
         if(cantVisitantes==0){
             System.out.println("Se fueron todos");
         }else{
-            System.out.println("Quedan "+cantVisitantes+" visitantes en el parque");
+            System.out.println("Sale visitante " +id+". Quedan "+cantVisitantes+" visitantes en el parque");
         }
     }
 }

@@ -36,7 +36,7 @@ public class Comedor {
         }
         visitantesDentro++;
 
-        System.out.println("Entra visitante " + id);
+        System.out.println("Entra al comedor visitante " + id);
 
     }
 
@@ -123,7 +123,7 @@ public class Comedor {
 
     public synchronized void saleVisitante(int id) {
 
-        System.out.println("Sale visitante del comedor" + id);
+        System.out.println("Sale del comedor visitante " + id);
 
         visitantesDentro--;
 

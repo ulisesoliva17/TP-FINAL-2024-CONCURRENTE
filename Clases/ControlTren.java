@@ -29,7 +29,7 @@ public class ControlTren {
     public void partirTren() throws InterruptedException {
         sem.acquire();
 
-        System.out.println("Comienza a esperar");
+        System.out.println("El tren comienza su contador");
 
         reloj.poll(TIEMPO_ESPERA, TimeUnit.SECONDS); // Controla tiempo o cantVisitantes
 

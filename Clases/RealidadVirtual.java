@@ -18,14 +18,14 @@ public class RealidadVirtual {
         cantVisor--;
         cantManopla -= 2;
         cantBase--;
-        System.out.println(visitante + " Tiene equipoCompleto");
+        System.out.println(visitante + " obtiene equipoCompleto");
     }
 
     public synchronized void devolverEquipo(String visitante) {
         cantVisor++;
         cantManopla += 2;
         cantBase++;
-        System.out.println(visitante + " Devuelve equipoCompleto.");
+        System.out.println(visitante + " devuelve equipoCompleto");
         notify();
     }
 }

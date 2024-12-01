@@ -36,6 +36,6 @@ public class AreaJuegos {
             premio = "Premio pequeño";
         }
         // Intercambiar premio con el visitante
-        System.out.println("El visitante" + id + " recibio el premio: " + premio);
+        System.out.println("El visitante " + id + " recibio el premio: " + premio);
     }
 }
