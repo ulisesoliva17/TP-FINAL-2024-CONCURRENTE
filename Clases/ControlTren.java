@@ -9,7 +9,7 @@ public class ControlTren {
     private static final int CAPACIDAD_TREN = 10;
     private static final long TIEMPO_ESPERA = 5; // en minutos
     private final BlockingQueue<String> cola = new LinkedBlockingQueue<>(CAPACIDAD_TREN);
-    private final BlockingQueue<Integer> reloj = new ArrayBlockingQueue<>(1);
+    private final BlockingQueue<Integer> tren = new ArrayBlockingQueue<>(1);
     private final Semaphore sem = new Semaphore(0);
 
     public synchronized void abordarTren(String visitante) throws InterruptedException {
@@ -22,7 +22,8 @@ public class ControlTren {
         }
 
         else if (cola.size() == 10) {
-            reloj.put(1);
+            //Larga la senal para que el tren largue si se lleno la cola
+            tren.put(1);
         }
     }
 
@@ -31,9 +32,9 @@ public class ControlTren {
 
         System.out.println("El tren comienza su contador");
 
-        reloj.poll(TIEMPO_ESPERA, TimeUnit.SECONDS); // Controla tiempo o cantVisitantes
+        tren.poll(TIEMPO_ESPERA, TimeUnit.SECONDS); // Controla tiempo o cantVisitantes
 
         System.out.println("El tren parte con " + cola.size() + " visitantes: " + cola);
-        cola.clear(); // Vacía el tren
+        cola.clear(); // Vacía la cola del tren, es decir, resetea
     }
 }
