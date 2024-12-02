@@ -12,17 +12,17 @@ public class AreaJuegos {
     }
 
     public int jugar(int id) throws InterruptedException {
-        semEntrada.release(); // notifica al empleado para poder recibir una ficha
         ficha.exchange("Visitante "+ id + " cambia una ficha");
         int puntos = (int) (Math.random() * 10) * 1000;
         Thread.sleep(puntos); // simula tiempo de juego
+        semEntrada.release(); // notifica al empleado para poder recibir una ficha
         return puntos;
     }
 
     public void darFicha() throws InterruptedException {
         // metodo ejecutado por los encargados del area
         semEntrada.acquire();
-        String pantalla = ficha.exchange("");
+        String pantalla = ficha.exchange("Soy el encargado. Recibi las fichas.");
         System.out.println(pantalla);
     }
     public void recibirPremio(int puntos, int id) throws InterruptedException {

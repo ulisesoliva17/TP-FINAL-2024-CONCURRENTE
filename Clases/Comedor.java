@@ -43,7 +43,7 @@ public class Comedor {
     public int buscaMesa(int id) throws InterruptedException, BrokenBarrierException, TimeoutException {
 
         int mesaAsignada;
-
+        //Protegemos la seccion critica
         synchronized (this) {
 
             mesaAsignada = eleccionMesa(id);
@@ -59,6 +59,7 @@ public class Comedor {
         }
 
         try {
+            //Si no se sentaron los 4, larga despues de 5 minutos
             mesas[mesaAsignada].await(5, TimeUnit.SECONDS);
 
             if (sentados[mesaAsignada] == 4) {
@@ -80,14 +81,18 @@ public class Comedor {
         int mesaAsignada = -1;
         int candidata = -1;
 
-        // Busca mesa con espacio
+        // Buscaremos una mesa libre. Mientras que la mesa asignada sea -1
+        //es decir, que el while corre mientras que no tenga mesa asignada.
         while (mesaAsignada == -1) {
             if (!mesaLlena[i]) {
-                // Encuentra mesa con espacio
+                // Si la mesa en i esta libre
                 if (candidata == -1) {
+                    //Y todavia no tiene mesa asignada, entonces a la candidata le asignamos i.
                     candidata = i;
                 } else if (candidata != -1 && mesas[i].getNumberWaiting() > mesas[candidata].getNumberWaiting()) {
                     // Si hay una mesa con mas visitantes, la elige como candidata
+                    //es decir, que da prioridad a la mesa que mas gente esta sentada
+                    //ya que es mas probable que se llene y puedan comer.
                     candidata = i;
                 }
             }
